@@ -1,5 +1,4 @@
 import sys
-
 import cv2
 import PyQt5
 from PyQt5.QtCore import pyqtSlot
