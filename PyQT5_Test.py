@@ -2,7 +2,6 @@
 This is just used to check for OpenCV and PyQt Versions
 """
 
-
 import cv2
 from PyQt5.Qt import PYQT_VERSION_STR
 

@@ -17,7 +17,6 @@ class loadCarGui(QDialog):
         self.TurnOffCamButton.clicked.connect(self.Stop_WebCam)
     @pyqtSlot()
 
-
 #------------------------------------------------------------------------------#
 #This function will take IP Address and connect to the PI
     def connectionButtonClicked(self):
