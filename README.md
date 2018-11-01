@@ -1,7 +1,7 @@
 Client Server Controller
 ===
 
-####This repository contains the desktop application to connect to and run the **Neural Network RC Car**.
+This repository contains the desktop application to connect to and run the **Autonomous RC Car**.
 
 Features:
 * Connect from your local machine to the on-board Raspberry Pi system via the Pi's IP Address
