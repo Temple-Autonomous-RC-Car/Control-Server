@@ -46,10 +46,15 @@ class loadCarGui(QDialog):
 
 
 #------------------------------------------------------------------------------#
+# test port: http://192.168.137.141:8081/
 # Code to Test WebCam Functionality.
 # This is to just figure out how live video will work on this client
     def Start_WebCam(self):
-        self.capture=cv2.VideoCapture(0)
+        #port on webcam
+        #self.capture=cv2.VideoCapture(0)
+
+        #Port on the pi
+        self.capture=cv2.VideoCapture('http://192.168.137.141:8081/')
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 
@@ -59,7 +64,7 @@ class loadCarGui(QDialog):
 
     def update_frame(self):
         ret,self.image=self.capture.read()
-        self.image=cv2.flip(self.image,1)
+        #self.image=cv2.flip(self.image,1)
         self.displayImage(self.image,1)
 
     def Stop_WebCam(self):
