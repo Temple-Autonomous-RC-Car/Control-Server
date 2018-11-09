@@ -2,7 +2,7 @@ import sys
 import cv2
 import PyQt5
 from PyQt5.QtCore import pyqtSlot, QTimer
-from PyQt5.QtWidgets import QApplication,QDialog,QLabel
+from PyQt5.QtWidgets import *
 from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon, QPixmap
 
@@ -13,7 +13,13 @@ class loadCarGui(QDialog):
     def __init__(self):
         super(loadCarGui,self).__init__()
         loadUi('rcGUI_design.ui',self)
+
+
+
         self.setWindowTitle('Neural Network R/C Car')
+        self.scrollArea.setWidget(self.CarLogLabel)
+        self.scrollArea.setVerticalScrollBar (self.sensorLog_verticalScrollBar)
+
         self.ConnectButton.clicked.connect(self.connectionButtonClicked)
         self.testLogButton.clicked.connect(self.testLogFeed)
         self.stopLogButton.clicked.connect(self.stopLogFeed)
@@ -31,15 +37,23 @@ class loadCarGui(QDialog):
 #This function will take IP Address and connect to the PI
     def connectionButtonClicked(self):
         self.CarIPLabel.setText(self.IPlineEdit.text())
+        ipVAl = self.IPlineEdit.text()
+        if ipVAl == "":
+            self.noIPwarning.setText("NO IP:PORT VALUE")
+
 
 #------------------------------------------------------------------------------#
 #This function will test output sensor log from testLog.py
     def testLogFeed(self):
         #self.CarLogLabel.setText(testLog.testPrint())
         self.qTimer.start()
-        self.i +=1
-        self.temp += testLog.testPrint() + str(self.i) + "\n"
+        self.i += 1
+        self.temp += testLog.testPrint() + " " + str(self.i) + "\n"
         self.CarLogLabel.setText(self.temp)
+
+        #Find a way to keep calling the scrollbar.maximum()
+
+        #self.sensorLog_verticalScrollBar.
 
     def stopLogFeed(self):
         self.qTimer.stop()
@@ -54,7 +68,11 @@ class loadCarGui(QDialog):
         #self.capture=cv2.VideoCapture(0)
 
         #Port on the pi
-        self.capture=cv2.VideoCapture('http://192.168.137.141:8081/')
+        #self.capture=cv2.VideoCapture('http://192.168.137.141:8081/')
+
+        #IP:Port from input
+        self.capture=cv2.VideoCapture('http://' + self.IPlineEdit.text() + '/')
+
         self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
         self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)
 

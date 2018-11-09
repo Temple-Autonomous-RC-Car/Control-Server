@@ -13,6 +13,12 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QPushButton" name="RunButton">
    <property name="geometry">
     <rect>
@@ -55,7 +61,7 @@
   <widget class="QLabel" name="IPAddressLabel">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>30</x>
      <y>50</y>
      <width>151</width>
      <height>31</height>
@@ -67,7 +73,7 @@
     </font>
    </property>
    <property name="text">
-    <string>Pi IP Address:</string>
+    <string>Pi IP:Port Address</string>
    </property>
   </widget>
   <widget class="QLabel" name="CarLogTitle">
@@ -109,11 +115,20 @@
     <string notr="true">background-color: rgb(255, 255, 127);
 </string>
    </property>
+   <property name="frameShape">
+    <enum>QFrame::Panel</enum>
+   </property>
    <property name="text">
     <string/>
    </property>
    <property name="alignment">
     <set>Qt::AlignBottom|Qt::AlignLeading|Qt::AlignLeft</set>
+   </property>
+   <property name="wordWrap">
+    <bool>false</bool>
+   </property>
+   <property name="textInteractionFlags">
+    <set>Qt::NoTextInteraction</set>
    </property>
   </widget>
   <widget class="QPushButton" name="ConnectButton">
@@ -304,6 +319,127 @@
     <string>Test Log</string>
    </property>
   </widget>
+  <widget class="QScrollArea" name="scrollArea">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>310</y>
+     <width>201</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="focusPolicy">
+    <enum>Qt::WheelFocus</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Sunken</enum>
+   </property>
+   <property name="verticalScrollBarPolicy">
+    <enum>Qt::ScrollBarAlwaysOn</enum>
+   </property>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignBottom|Qt::AlignJustify</set>
+   </property>
+   <widget class="QWidget" name="CarFeedContent_Scrollable">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>182</width>
+      <height>339</height>
+     </rect>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QScrollBar" name="sensorLog_verticalScrollBar">
+   <property name="geometry">
+    <rect>
+     <x>250</x>
+     <y>310</y>
+     <width>16</width>
+     <height>341</height>
+    </rect>
+   </property>
+   <property name="sizePolicy">
+    <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+     <horstretch>0</horstretch>
+     <verstretch>0</verstretch>
+    </sizepolicy>
+   </property>
+   <property name="minimum">
+    <number>0</number>
+   </property>
+   <property name="maximum">
+    <number>16777215</number>
+   </property>
+   <property name="pageStep">
+    <number>10</number>
+   </property>
+   <property name="value">
+    <number>16777215</number>
+   </property>
+   <property name="sliderPosition">
+    <number>16777215</number>
+   </property>
+   <property name="tracking">
+    <bool>false</bool>
+   </property>
+   <property name="orientation">
+    <enum>Qt::Vertical</enum>
+   </property>
+   <property name="invertedAppearance">
+    <bool>false</bool>
+   </property>
+   <property name="invertedControls">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="QLabel" name="noIPwarning">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>19</y>
+     <width>211</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: red;</string>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <zorder>scrollArea</zorder>
+  <zorder>RunButton</zorder>
+  <zorder>StopButton</zorder>
+  <zorder>IPlineEdit</zorder>
+  <zorder>IPAddressLabel</zorder>
+  <zorder>CarLogTitle</zorder>
+  <zorder>CarLogLabel</zorder>
+  <zorder>ConnectButton</zorder>
+  <zorder>LiveVideoFeedLabelTitle</zorder>
+  <zorder>IPAddressLabel_5</zorder>
+  <zorder>imageUploadEdit</zorder>
+  <zorder>MapUploadButton</zorder>
+  <zorder>TestCamButton</zorder>
+  <zorder>TurnOffCamButton</zorder>
+  <zorder>LiveCamView</zorder>
+  <zorder>CarLogTitle_2</zorder>
+  <zorder>CarIPLabel</zorder>
+  <zorder>stopLogButton</zorder>
+  <zorder>testLogButton</zorder>
+  <zorder>sensorLog_verticalScrollBar</zorder>
+  <zorder>noIPwarning</zorder>
  </widget>
  <resources/>
  <connections/>
