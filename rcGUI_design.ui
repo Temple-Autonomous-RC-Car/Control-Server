@@ -6,9 +6,12 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1026</width>
-    <height>700</height>
+    <width>984</width>
+    <height>884</height>
    </rect>
+  </property>
+  <property name="contextMenuPolicy">
+   <enum>Qt::PreventContextMenu</enum>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
@@ -79,19 +82,22 @@
   <widget class="QLabel" name="CarLogTitle">
    <property name="geometry">
     <rect>
-     <x>50</x>
-     <y>270</y>
-     <width>81</width>
-     <height>31</height>
+     <x>30</x>
+     <y>260</y>
+     <width>131</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>11</pointsize>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: red;</string>
+   </property>
    <property name="text">
-    <string>Car Log</string>
+    <string>Car Log: (N/A yet)</string>
    </property>
   </widget>
   <widget class="QLabel" name="CarLogLabel">
@@ -165,19 +171,24 @@
   <widget class="QLabel" name="IPAddressLabel_5">
    <property name="geometry">
     <rect>
-     <x>50</x>
+     <x>20</x>
      <y>90</y>
-     <width>111</width>
+     <width>161</width>
      <height>31</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>14</pointsize>
+     <pointsize>12</pointsize>
+     <weight>50</weight>
+     <bold>false</bold>
     </font>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: red;</string>
+   </property>
    <property name="text">
-    <string>Map Upload: </string>
+    <string>Map Upload: (N/A yet)</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="imageUploadEdit">
@@ -209,27 +220,27 @@
   <widget class="QPushButton" name="TestCamButton">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>580</x>
      <y>50</y>
-     <width>121</width>
+     <width>141</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>Test WebCam</string>
+    <string>View Camera Stream</string>
    </property>
   </widget>
   <widget class="QPushButton" name="TurnOffCamButton">
    <property name="geometry">
     <rect>
-     <x>600</x>
+     <x>580</x>
      <y>90</y>
-     <width>121</width>
+     <width>141</width>
      <height>31</height>
     </rect>
    </property>
    <property name="text">
-    <string>TurnOffCam</string>
+    <string>Turn Camera Stream Off</string>
    </property>
   </widget>
   <widget class="QLabel" name="LiveCamView">
@@ -243,6 +254,12 @@
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: &quot;red&quot;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
    </property>
    <property name="text">
     <string/>
@@ -285,6 +302,12 @@
    </property>
    <property name="styleSheet">
     <string notr="true">background-color: lightgreen;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
    </property>
    <property name="text">
     <string/>
@@ -379,16 +402,16 @@
     <number>0</number>
    </property>
    <property name="maximum">
-    <number>16777215</number>
+    <number>16777212</number>
    </property>
    <property name="pageStep">
     <number>10</number>
    </property>
    <property name="value">
-    <number>16777215</number>
+    <number>16777212</number>
    </property>
    <property name="sliderPosition">
-    <number>16777215</number>
+    <number>16777212</number>
    </property>
    <property name="tracking">
     <bool>false</bool>
@@ -419,6 +442,92 @@
     <string/>
    </property>
   </widget>
+  <widget class="QLabel" name="CarLogTitle_3">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>40</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: red;</string>
+   </property>
+   <property name="text">
+    <string>(N/A yet)</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="CarLogTitle_4">
+   <property name="geometry">
+    <rect>
+     <x>850</x>
+     <y>80</y>
+     <width>131</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">color: red;</string>
+   </property>
+   <property name="text">
+    <string>(N/A yet)</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="cmd_line">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>700</y>
+     <width>671</width>
+     <height>131</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: orange;</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sendCMD">
+   <property name="geometry">
+    <rect>
+     <x>740</x>
+     <y>730</y>
+     <width>181</width>
+     <height>81</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Send</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="IPAddressLabel_2">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>670</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Command Line</string>
+   </property>
+  </widget>
   <zorder>scrollArea</zorder>
   <zorder>RunButton</zorder>
   <zorder>StopButton</zorder>
@@ -440,6 +549,11 @@
   <zorder>testLogButton</zorder>
   <zorder>sensorLog_verticalScrollBar</zorder>
   <zorder>noIPwarning</zorder>
+  <zorder>CarLogTitle_3</zorder>
+  <zorder>CarLogTitle_4</zorder>
+  <zorder>cmd_line</zorder>
+  <zorder>sendCMD</zorder>
+  <zorder>IPAddressLabel_2</zorder>
  </widget>
  <resources/>
  <connections/>

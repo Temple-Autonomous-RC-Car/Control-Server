@@ -7,6 +7,7 @@ from PyQt5.uic import loadUi
 from PyQt5.QtGui import QIcon, QPixmap
 
 import testLog
+import socket_man_test
 
 #Car Gui opens when executed
 class loadCarGui(QDialog):
@@ -18,7 +19,9 @@ class loadCarGui(QDialog):
 
         self.setWindowTitle('Neural Network R/C Car')
         self.scrollArea.setWidget(self.CarLogLabel)
-        self.scrollArea.setVerticalScrollBar (self.sensorLog_verticalScrollBar)
+        self.scrollArea.setVerticalScrollBar(self.sensorLog_verticalScrollBar)
+
+        self.sendCMD.clicked.connect(self.socketTextTest)
 
         self.ConnectButton.clicked.connect(self.connectionButtonClicked)
         self.testLogButton.clicked.connect(self.testLogFeed)
@@ -33,6 +36,12 @@ class loadCarGui(QDialog):
         #self.qTimer.start()
     @pyqtSlot()
 
+
+#------------------------------------------------------------------------------#
+    def socketTextTest(self):
+        line = self.cmd_line.toPlainText()
+        socket_man_test.pullfromCLient(line)
+
 #------------------------------------------------------------------------------#
 #This function will take IP Address and connect to the PI
     def connectionButtonClicked(self):
@@ -45,6 +54,8 @@ class loadCarGui(QDialog):
 #------------------------------------------------------------------------------#
 #This function will test output sensor log from testLog.py
     def testLogFeed(self):
+
+
         #self.CarLogLabel.setText(testLog.testPrint())
         self.qTimer.start()
         self.i += 1
@@ -53,7 +64,11 @@ class loadCarGui(QDialog):
 
         #Find a way to keep calling the scrollbar.maximum()
 
-        #self.sensorLog_verticalScrollBar.
+        self.sensorLog_verticalScrollBar.setValue(scrollBar.maxValue())
+        #while self.qTimer.stop() != 'true':
+        #    self.sensorLog_verticalScrollBar.maximum();
+
+
 
     def stopLogFeed(self):
         self.qTimer.stop()
@@ -67,8 +82,13 @@ class loadCarGui(QDialog):
         #port on webcam
         #self.capture=cv2.VideoCapture(0)
 
-        #Port on the pi
+        #Port on the Aaron's pi
         #self.capture=cv2.VideoCapture('http://192.168.137.141:8081/')
+
+        #Function will return if IP:Port Value is empty
+        if self.IPlineEdit.text() == "":
+            self.noIPwarning.setText("NO IP:PORT VALUE")
+            return
 
         #IP:Port from input
         self.capture=cv2.VideoCapture('http://' + self.IPlineEdit.text() + '/')
