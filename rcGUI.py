@@ -20,8 +20,12 @@ class loadCarGui(QDialog):
         self.setWindowTitle('Neural Network R/C Car')
         self.scrollArea.setWidget(self.CarLogLabel)
         self.scrollArea.setVerticalScrollBar(self.sensorLog_verticalScrollBar)
+        self.sensorLog_verticalScrollBar.setValue(self.sensorLog_verticalScrollBar.maximum());
+
+        self.scrollArea.setWidget(self.CarLogLabel) 
 
         self.sendCMD.clicked.connect(self.socketTextTest)
+
 
         self.ConnectButton.clicked.connect(self.connectionButtonClicked)
         self.testLogButton.clicked.connect(self.testLogFeed)
@@ -52,19 +56,21 @@ class loadCarGui(QDialog):
 
 
 #------------------------------------------------------------------------------#
-#This function will test output sensor log from testLog.py
+#This function will test output sensor log from testLog.pyr
     def testLogFeed(self):
 
 
         #self.CarLogLabel.setText(testLog.testPrint())
         self.qTimer.start()
+
         self.i += 1
         self.temp += testLog.testPrint() + " " + str(self.i) + "\n"
         self.CarLogLabel.setText(self.temp)
+        self.sensorLog_verticalScrollBar.setValue(self.sensorLog_verticalScrollBar.maximum());
 
         #Find a way to keep calling the scrollbar.maximum()
 
-        self.sensorLog_verticalScrollBar.setValue(scrollBar.maxValue())
+        #self.sensorLog_verticalScrollBar.setValue(scrollBar.maxValue())
         #while self.qTimer.stop() != 'true':
         #    self.sensorLog_verticalScrollBar.maximum();
 

@@ -490,7 +490,7 @@
      <x>50</x>
      <y>700</y>
      <width>671</width>
-     <height>131</height>
+     <height>101</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -500,8 +500,8 @@
   <widget class="QPushButton" name="sendCMD">
    <property name="geometry">
     <rect>
-     <x>740</x>
-     <y>730</y>
+     <x>730</x>
+     <y>700</y>
      <width>181</width>
      <height>81</height>
     </rect>
@@ -526,6 +526,37 @@
    </property>
    <property name="text">
     <string>Command Line</string>
+   </property>
+  </widget>
+  <widget class="QTextEdit" name="exception_line">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>830</y>
+     <width>671</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: lightblue;</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="IPAddressLabel_3">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>800</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>10</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Exception Catches</string>
    </property>
   </widget>
   <zorder>scrollArea</zorder>
@@ -554,6 +585,8 @@
   <zorder>cmd_line</zorder>
   <zorder>sendCMD</zorder>
   <zorder>IPAddressLabel_2</zorder>
+  <zorder>exception_line</zorder>
+  <zorder>IPAddressLabel_3</zorder>
  </widget>
  <resources/>
  <connections/>
