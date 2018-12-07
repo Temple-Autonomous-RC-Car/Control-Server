@@ -1,13 +1,16 @@
 from LaneDetectorObj.tracker import LaneTracker
-import socket_man_test
+#import socket_man_test
 import cv2
 from simple_pid import PID
+import os
+import ip
 
-pid = PID(.6, 0, .2, setpoint=0)
-pid.output_limits = (-1, 1)
+#try:
 
+pid = PID(0, 0, 0, setpoint=0)
+pid.output_limits = (-.5, .5)
 def updateSteering(steer):
-    socket_man_test.sendFormattedCommand("steer %.3f " % steer)
+    #socket_man_test.sendFormattedCommand("steer %.3f " % steer)
     print(steer)
 
     
@@ -20,9 +23,8 @@ def offsetToSteeringAngle(value):
     return steering
 
 
-ipAddr = "http://192.168.43.51:8081"
-
-vidCap = cv2.VideoCapture(ipAddr)
+ipAddr = ip.PORTIP
+vidCap = cv2.VideoCapture("http://"+ipAddr)
 steering = updateSteering(0)
 pid.sample_time = 0.1
 while True:
@@ -52,7 +54,7 @@ while True:
         """
         updateSteering(control)
     except Exception as e:
-        print(e.message)
+        print(e)
         continue
     
     

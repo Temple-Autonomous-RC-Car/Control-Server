@@ -4,6 +4,7 @@ from LaneDetectorObj.window import Window
 from LaneDetectorObj.line import Line
 from LaneDetectorObj.gradients import get_edges
 from LaneDetectorObj.perspective import flatten_perspective
+import matplotlib.pyplot as plt
 
 
 class LaneTracker(object):
@@ -102,6 +103,11 @@ class LaneTracker(object):
         Resulting frame.
         """
         edges = get_edges(frame)
+        #print(len(edges.shape))
+        #test = cv2.merge((edges,edges,edges))
+        #plt.imshow(edges, cmap='gray')
+       # plt.show()
+        #cv2.waitKey(0)
         (flat_edges, unwarp_matrix) = flatten_perspective(edges)
         (l_x, l_y) = self.scan_frame_with_windows(flat_edges, self.l_windows)
         self.left.process_points(l_x, l_y)

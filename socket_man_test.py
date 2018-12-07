@@ -1,7 +1,9 @@
 import socket
 import sys
+import struct
+import ip
 
-TCP_IP = '10.42.0.217'
+TCP_IP = ip.IPADDR
 #TCP_IP = '127.0.0.1'
 TCP_PORT = 12346
 
@@ -17,6 +19,16 @@ def pullfromCLient(line):
         else:
             return
 
+    except KeyboardInterrupt:
+        s.close()
+        sys.exit()
+
+def sendFormattedCommand(line):
+    try:
+        if line:
+            s.send(struct.pack("i", len(line)) + line.encode())
+        else:
+            return
     except KeyboardInterrupt:
         s.close()
         sys.exit()

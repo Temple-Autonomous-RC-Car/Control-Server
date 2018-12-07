@@ -139,7 +139,7 @@ def get_edges(image, separate_channels=False):
     r_channel = image[:,:,0]
     red_color_mask = color_threshold_mask(r_channel, threshold=(0, 90))
     b_channel = image[:,:,2]
-    blue_color_mask = color_threshold_mask(b_channel, threshold=(90,255))
+    blue_color_mask = color_threshold_mask(b_channel, threshold=(70,255))
     if separate_channels:
         return np.dstack((np.zeros_like(r_channel), blue_color_mask, red_color_mask))
     else:

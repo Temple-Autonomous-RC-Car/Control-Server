@@ -73,10 +73,7 @@ class Line(object):
         x   : Array of x coordinates for pixels representing a line.
         y   : Array of y coordinates for pixels representing a line.
         """
-        if(not x.any()) or (not y.any()):
-            return
         self.coefficients.append(np.polyfit(y, x, 2))
-        
 
     def radius_of_curvature(self):
         """
@@ -88,8 +85,8 @@ class Line(object):
         Estimated radius of curvature in meters.
         """
         # Define conversions in x and y from pixels space to meters
-        ym_per_pix = 61/ 700  # meters per pixel in y dimension
-        xm_per_pix = 43/432   # meters per pixel in x dimension
+        ym_per_pix = 61/ 1080  # meters per pixel in y dimension
+        xm_per_pix = 41/1700   # meters per pixel in x dimension
         # Fit new polynomials to x,y in world space
         points = self.get_points()
         y = points[:, 1]
@@ -107,6 +104,6 @@ class Line(object):
         Estimated distance to camera in meters.
         """
         points = self.get_points()
-        xm_per_pix = 43 / 432  # centi-meters per pixel in x dimension
+        xm_per_pix = 41 / 1700  # meters per pixel in x dimension
         x = points[np.max(points[:, 1])][0]
         return np.absolute((self.w // 2 - x) * xm_per_pix)
