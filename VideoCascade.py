@@ -39,9 +39,11 @@ def stopCommand(ts):
 
  
 
-def detect(path):
+def detect(objects):
     ipAddr = ip.PORTIP
-    cascade = cv2.CascadeClassifier(path)
+    cascade1 = cv2.CascadeClassifier(objects[0])
+    cascade2 = cv2.CascadeClassifier(objects[1])
+    cascade3 = cv2.CascadeClassifier(objects[2])
     if webcam:
         video_cap = cv2.VideoCapture("http://"+ipAddr) # use 0,1,2..depanding on your webcam
         video_cap.set(cv2.CAP_PROP_FPS, 30)
@@ -63,14 +65,23 @@ def detect(path):
         #converting to gray image for faster video processing
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
  
-        rects = cascade.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
+        rects1 = cascade1.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
+                                         minSize=min_size)
+        rects2 = cascade2.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
+                                         minSize=min_size)
+        rects3 = cascade3.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
                                          minSize=min_size)
         # if at least 1 face detected
-        if len(rects) > 0:
+        if len(rects1) > 0:
             stopCommand(3)    
             print("Object Detecting")
             turn()
             break
+        if len(rects2)>0:
+            print("SLOW")
+        
+        if len(rects3)>0:
+            print("SPEED")
             #steer(-1)
             #drive(0.28)
             #time.sleep(1)
@@ -89,7 +100,7 @@ def detect(path):
     
 def main():
     updateDirectionsList()
-    cascadeFilePath="stop.xml"
+    cascadeFilePath=["stop.xml","slowNewSign.xml","speedNewSign.xml"]
     try:
         detect(cascadeFilePath)
     except KeyboardInterrupt: 
