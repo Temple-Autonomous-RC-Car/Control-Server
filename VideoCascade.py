@@ -60,6 +60,8 @@ def detect(objects):
    # cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_AUTOSIZE)
    # cv2.startWindowThread()
     #updateSpeed(0.26)
+    global ATSTOP
+    counter = 0
     while True:
         # Capture frame-by-frame
         ret, img = video_cap.read()
@@ -77,7 +79,6 @@ def detect(objects):
         rects3 = cascade3.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
                                          minSize=min_size)
         # if at least 1 face detected
-        global ATSTOP
         if len(rects1) > 0:
             if(ATSTOP == False):
                 print("Object Detecting")
@@ -86,7 +87,11 @@ def detect(objects):
             #stopCommand(3)    
             #break
             continue
-        ATSTOP = False
+        counter+=1
+        print("Counter is %d" % counter)
+        if(counter> 30):
+            ATSTOP = False
+            counter = 0
         if len(rects2)>0:
             print("SLOW")
         
