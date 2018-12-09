@@ -86,8 +86,8 @@ def dijkstra(graph, source, dest):
 #--------------------------------------
 #--------------------------------------
 
-im = Image.open("roommap.png")#sys.argv[1]
-image = cv2.imread("roommap.png")
+im = Image.open("roomwithoutmarkers.png")#sys.argv[1]
+image = cv2.imread("roomwithoutmarkers.png")
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 gray =  np.float32(gray)
 dst = cv2.cornerHarris(gray, 2,3,0.04)
@@ -97,7 +97,13 @@ ret, labels, stats, centroids = cv2.connectedComponentsWithStats(dst)
 criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 0.001)
 corners = cv2.cornerSubPix(gray, np.float32(centroids), (10,10), (-1,-1), criteria)
 
+
+startingPixel=(int(sys.argv[1]), int(sys.argv[2]))
+endingPixel=(int(sys.argv[3]), int(sys.argv[4]))
 nodes = []
+
+cv2.circle(image,(startingPixel), 20, (0,255,0), -1)
+cv2.circle(image,(endingPixel), 20, (255,0,255), -1)
 
 for i in range(0, len(corners)):
 	l,m = corners[i]
@@ -109,10 +115,12 @@ gray = cv2.medianBlur(gray, 5)
 rows = gray.shape[0]
 circles = cv2.HoughCircles(gray, cv2.HOUGH_GRADIENT, 2, rows / 8, param1=100, param2=30, minRadius=1, maxRadius=50)
 centers = []
+centers.append(startingPixel)
+centers.append(endingPixel)
 rgb_im = im.convert("RGB")
 distanceX = 0
 distanceY = 0
-    
+"""   
 if circles is not None:
 	circles = np.uint16(np.around(circles))
 	for i in circles[0, :]:
@@ -125,8 +133,9 @@ if circles is not None:
 		cv2.circle(image, center, radius, (255, 0, 255), 3)
 else:
 	print("none")
-
+"""
 centers2 = []
+"""
 for i in range(0, len(centers)):
 	x,y = centers[i]
 	r,g,b = rgb_im.getpixel((int(x+2),int(y+2)))
@@ -134,12 +143,14 @@ for i in range(0, len(centers)):
 		centers2.append(centers[i])
 	elif r <100 and g > 255 and b < 100:
 		centers2.append(centers[i])	
-
-for i in range(0, len(centers)):
-	print("centers")
-	print(centers[i])
-
+"""
+#for i in range(0, len(centers)):
+#	print("centers")
+#	print(centers[i])
+centers2.append(startingPixel)
+centers2.append(endingPixel)
 x,y = centers2[0]
+
 h,w = image.shape[:2]
 mask = np.zeros((h+2, w+2), np.uint8)
 im = cv2.floodFill(image, mask, (x+20,y+20), 255, loDiff=(4,4,4,4), upDiff=(4,4,4,4))
@@ -148,9 +159,9 @@ im = Image.open("flooded.png")
 pix = im.load()
 rgb_im = im.convert("RGB")
 r,g,b = rgb_im.getpixel((int(x+20),int(y+20)))
-print(r)
-print(g)
-print(b)
+#print(r)
+#print(g)
+#print(b)
 
 
 length = len(nodes)
@@ -318,13 +329,13 @@ for i in range(0, len(actualNodes)):
 	else:
 		realFinal.append(actualNodes[i])
 
-print("real final")	
-print(len(realFinal))
+#print("real final")	
+#print(len(realFinal))
 
 actualNodes = realFinal
 f = 0
-print("actual Nodes length")
-print(len(actualNodes))
+#print("actual Nodes length")
+#print(len(actualNodes))
 actualNodesCopy = copy.deepcopy(actualNodes)
 i=0
 m=0
@@ -338,7 +349,7 @@ for i in range(0, len(actualNodes)):
 			
 
 actualNodes = list(set(actualNodes))
-print(len(actualNodes))
+#print(len(actualNodes))
 """
 otherTry.append(actualNodes[0])
 for i in range(0, len(actualNodes)):
@@ -358,7 +369,7 @@ for i in range(0, len(actualNodes)):
 	else:
 		otherTry.append(actualNodes[i])	
 """
-print(len(otherTry))
+#print(len(otherTry))
 #for i in range(0, len(otherTry)):
 #	print("other try")
 #	print(otherTry[i])
@@ -373,7 +384,7 @@ otherTry.sort()
 
 final = []
 finalWithLetters = []
-x,y = centers[0]
+x,y = centers[1]
 final.append((x,y))
 letter = "A"
 finalWithLetters.append(((x,y),"A"))
@@ -386,16 +397,16 @@ for i in range(0, len(otherTry)):
 	finalWithLetters.append(((x,y), letter))
 	finalNodes.append((x,y))
 
-x,y = centers[1]
+x,y = centers[0]
 final.append((x,y))
 letter = chr(ord(letter)+1)
 finalWithLetters.append(((x,y), letter))
 finalNodes.append((x,y))
-
+'''
 print("Nodes")
 for i in range(0, len(finalWithLetters)):
 	print(finalWithLetters[i])
-
+'''
 edges = []
 edgeDir=[]
 """
@@ -414,10 +425,10 @@ for i in range(0, len(final)-1):
 """
 finalEdgesWithLetters = []
 finalEdges = []
-print("len final")
-print(len(final))
-print("len final with letters")
-print(len(finalWithLetters))
+#print("len final")
+#print(len(final))
+#print("len final with letters")
+#print(len(finalWithLetters))
 for i in range(0, len(final)):
 	x,y = final[i]
 	pts, letterA = finalWithLetters[i]
@@ -447,18 +458,14 @@ for i in range(0, len(final)):
 			finalEdgesWithLetters.append((letterA, letterB))
 			#cv2.line(image, (x,y), (l,p), (255,0,255), 4, 8, 0)
 
-	
-print("final edges with letters")
-for i in range(0, len(finalEdgesWithLetters)):
-	print(finalEdgesWithLetters[i])
 
 imageH = image.shape[0]
 imageW = image.shape[1]
 
-print(" Final Edges ")
+#print(" Final Edges ")
 for i in range(0, len(edgeDir)):
-	print(finalEdges[i])
-	print("Direction: ",edgeDir[i])
+	#print(finalEdges[i])
+	#print("Direction: ",edgeDir[i])
 	pts, direc= finalEdges[i]
 	pt1, pt2 = pts
 
@@ -485,9 +492,7 @@ for i in range(0,len(finalEdges)):
 	else:
 		howAboutThese.append(finalEdges[i])
 
-for i in range(0, len(howAboutThese)):
-	print("how about these")
-	print(howAboutThese[i])
+
 actualEdges = []
 
 for i in range(0, len(finalEdges)):
@@ -560,13 +565,6 @@ for i in range(0, len(finalEdges)):
 			actualEdges.append(finalEdges[i])
 
 
-for i in range(0, len(finalEdges)):
-	print(finalEdges[i])
-
-for i in range(0, len(actualEdges)):
-	print("actual edges")
-	print(actualEdges[i])
-
 actualFinalEdges = copy.deepcopy(actualEdges)
 for i in range(0, len(actualEdges)):
 	pts, direc = actualEdges[i]
@@ -605,9 +603,8 @@ for i in actualEdges:
 	if i not in newList:
 		newList.append(i)
 actualActual = []
-print("actual edges???")
+
 for i in range(0, len(newList)):
-	print(newList[i])
 	color = list(np.random.choice(range(256), size=3))
 	pts, direc = newList[i]
 	#actualActual.append(pts)
@@ -624,17 +621,12 @@ for i in range(0, len(newList)):
 	r = int(r)
 	g = int(g)
 	b = int(b)
-	cv2.line(image, (x,y), (l,p), (r,g,b), 4, 8, 0)
+	#cv2.line(image, (x,y), (l,p), (r,g,b), 4, 8, 0)
 
 
 path = []
 startingPoint = centers[0]
 endingPoint = centers[0] 
-
-print("actuals")
-for i in range(0, len(actualActual)):
-	print(actualActual[i])
-
 
 #time to put the nodes from the image into a graph
 
@@ -646,9 +638,6 @@ for i in range(0,len(final)):
 		pt2 = final[m]
 		
 		if (pt, pt2) in actualActual or (pt2, pt) in actualActual:
-			print("pairs")
-			print(pt)
-			print(pt2)
 			x,y = pt
 			l,p = pt2
 			if abs(x-l)<20:
@@ -657,7 +646,7 @@ for i in range(0,len(final)):
 				weight = abs(x-l)
 			edgesWithStartAndEnd.append((pt, pt2, i, m))
 			g.add_edge(i,m,(x,y),(l,p),weight)
-
+"""
 #Validate input is good--------------------------------------
 validIn=0;
 while validIn!=1:
@@ -672,9 +661,11 @@ while validIn!=1:
 	else:
 		print("\033[H\033[J")
 		validIn=1;
+"""
+
 
 #Shortest path and non-clever directions	
-shortest_path, distance = dijkstra(g, start, end)
+shortest_path, distance = dijkstra(g, len(final)-1, 0)
 
 edgeDirFinal=[]
 for i in range(0, len(shortest_path)-1):
@@ -682,27 +673,48 @@ for i in range(0, len(shortest_path)-1):
 	l,p = final[shortest_path[i+1]]
 	edges.append(((x,y),(l,p)))
 	if((x-l in range(-50,50)) and (y>p)):
+		cv2.line(image, (x,y), (l,p), (255, 0, 255), 4, 8, 0)
 		edgeDirFinal.append("North")
 	elif((x-l in range(-50,50)) and (y<p)):
+		cv2.line(image, (x,y), (l,p), (255, 0, 255), 4, 8, 0)
 		edgeDirFinal.append("South")
 	elif((y-p in range(-50,50)) and (x>l)):
+		cv2.line(image, (x,y), (l,p), (255, 0, 255), 4, 8, 0)
 		edgeDirFinal.append("West")
 	elif((y-p in range(-50,50)) and (x<l)):
+		cv2.line(image, (x,y), (l,p), (255, 0, 255), 4, 8, 0)
 		edgeDirFinal.append("East")
 
-print ("From point: ",start," to point: ",end," the shortest path is")
-for i in range(0,len(shortest_path)-1):
-	print ("Nodes: ",shortest_path[i], "->",shortest_path[i+1], ", Heading: ", edgeDirFinal[i])
-print ("Shortest path: ",shortest_path)
-print ("Distance: ",distance)
+leftAndRights = []
+for i in range(0, len(edgeDirFinal)-1):
+	direction1 = edgeDirFinal[i]
+	direction2 = edgeDirFinal[i+1]
+	if direction1=="South" and direction2 == "West":
+		leftAndRights.append("R")
+	elif direction1=="South" and direction2 == "East":
+		leftAndRights.append("L")
+	elif direction1=="North" and direction2 =="West":
+		leftAndRights.append("L")
+	elif direction1=="North" and direction2 =="East":
+		leftAndRights.append("R")
+	elif direction1 =="East" and direction2 =="South":
+		leftAndRights.append("R")
+	elif direction1 == "East" and direction2 == "North":
+		leftAndRights.append("L")
+	elif direction1 == "West" and direction2 =="South":
+		leftAndRights.append("L")
+	elif direction1 == "West" and direction2 =="North":
+		leftAndRights.append("R")
+	else:
+		leftAndRights.append("S")
 
-#print(g.edgePoints)
-'''for i in range(0, len(g.edgePoints)):
-	print(g.edgePoints[i])'''
-'''for i in range(0, len(edgesWithStartAndEnd)):
-	print(edgesWithStartAndEnd[i])'''
-for i in range(0, len(finalNodes)):
-	print(finalNodes[i])
+open("directions.txt", "w").close()
+f=open("directions.txt", "a+")
+for i in range(0, len(leftAndRights)):
+	f.write(""+leftAndRights[i]+"\n")
+	#print(leftAndRights[i])
+
+f.close()
 image[dst>0.1*dst.max()] = [255,255,0]
 #cv2.imshow("image", image)
 #cv2.imshow("gray", gray)
