@@ -34,8 +34,13 @@ def updateSpeed(speed):
     socket_man_test.sendFormattedCommand("2 %.2f drive %.3f" % (time.time(),speed))
     #socket_man_test.sendFormattedCommand("speed %.3f" % speed)
     print(speed)
-def stopCommand(ts):
-    socket_man_test.sendFormattedCommand("1 %.2f stop %.3f" % (time.time(),ts))
+def stopCommand(dir,ts):
+    if(dir == "L"):
+        socket_man_test.sendFormattedCommand("1 %.2f stopleft %.3f" % (time.time(),ts))
+    elif(dir == "R"):
+        socket_man_test.sendFormattedCommand("1 %.2f stopright %.3f" % (time.time(),ts))
+    else:
+        socket_man_test.sendFormattedCommand("1 %.2f stopcenter %.3f" % (time.time(),ts))
 
  
 
@@ -73,10 +78,10 @@ def detect(objects):
                                          minSize=min_size)
         # if at least 1 face detected
         if len(rects1) > 0:
-            stopCommand(3)    
+            #stopCommand(3)    
             print("Object Detecting")
             turn()
-            break
+            #break
         if len(rects2)>0:
             print("SLOW")
         
@@ -104,7 +109,7 @@ def main():
     try:
         detect(cascadeFilePath)
     except KeyboardInterrupt: 
-        stopCommand(1)
+        updateSpeed(0)
         #stop()
             
     #cv2.destroyAllWindows()
@@ -114,16 +119,20 @@ def turn():
     direction = directions.pop()
     print(direction)
     if "L" in direction:
-        updateSteering(1)
+        #updateSteering(1)
+        stopCommand("L", 3)
     elif "R" in direction:
-        updateSteering(-1)
+        stopCommand("R", 3)
+    elif "S" in direction:
+        stopCommand("S", 3)
+    """
     updateSpeed(0.26)
     time.sleep(3)
     updateSteering(0)
     updateSpeed(0.26)
     time.sleep(1)
     updateSpeed(0)
-
+    """
 if __name__ == "__main__":
     main()
 
