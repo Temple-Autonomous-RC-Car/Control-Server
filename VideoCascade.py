@@ -15,7 +15,7 @@ scale_factor = 1.3
 min_neighbors = 10
 min_size = (75, 75)
 webcam=True #if working with video file then make it 'False'
-
+ATSTOP = False
 
 def updateDirectionsList():
     f = open("directions.txt", "r")
@@ -77,11 +77,16 @@ def detect(objects):
         rects3 = cascade3.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
                                          minSize=min_size)
         # if at least 1 face detected
+        global ATSTOP
         if len(rects1) > 0:
+            if(ATSTOP == False):
+                print("Object Detecting")
+                turn()
+                ATSTOP = True
             #stopCommand(3)    
-            print("Object Detecting")
-            turn()
             #break
+            continue
+        ATSTOP = False
         if len(rects2)>0:
             print("SLOW")
         
@@ -107,6 +112,8 @@ def main():
     updateDirectionsList()
     cascadeFilePath=["stop.xml","slowNewSign.xml","speedNewSign.xml"]
     try:
+        updateSpeed(.26)
+        updateSteering(0)
         detect(cascadeFilePath)
     except KeyboardInterrupt: 
         updateSpeed(0)
