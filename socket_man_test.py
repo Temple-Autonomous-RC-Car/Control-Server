@@ -2,6 +2,7 @@ import socket
 import sys
 import struct
 import ip
+import time
 
 TCP_IP = ip.IPADDR
 #TCP_IP = '127.0.0.1'
@@ -32,3 +33,13 @@ def sendFormattedCommand(line):
     except KeyboardInterrupt:
         s.close()
         sys.exit()
+        
+def main():
+    x=0
+    sendFormattedCommand("1 " + str(time.time()) +" drive .26")
+    time.sleep(2)
+    sendFormattedCommand("1 " + str(time.time()) +" drive 0")
+    s.close()
+if(__name__ == "__main__"):
+    main()
+    

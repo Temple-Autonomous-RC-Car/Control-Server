@@ -4,6 +4,7 @@ import cv2
 from simple_pid import PID
 import os
 import ip
+import time
 
 #try:
 #pid = PID(.4 or .3<best, .1, 1, setpoint=0) .26
@@ -12,7 +13,10 @@ pid = PID(.3, .1, 1, setpoint=0)
 
 pid.output_limits = (-1, 1)
 def updateSteering(steer):
-    socket_man_test.sendFormattedCommand("steer %.3f " % steer)
+    """
+    Priority timestamp command amount
+    """
+    socket_man_test.sendFormattedCommand("3 %.2f steer %.3f " % (time.time(),steer))
     print(steer)
 
     
@@ -56,6 +60,9 @@ while True:
         UpdateSteering with new control
         """
         updateSteering(control)
+    except KeyboardInterrupt:
+        socket_man_test.sendFormattedCommand("1 "+time.time()+" drive 0 ")
+        exit()
     except Exception as e:
         print(e)
         continue
