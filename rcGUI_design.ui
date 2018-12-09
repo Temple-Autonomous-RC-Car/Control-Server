@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>984</width>
-    <height>884</height>
+    <width>1580</width>
+    <height>930</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -501,7 +501,7 @@
    <property name="geometry">
     <rect>
      <x>730</x>
-     <y>700</y>
+     <y>710</y>
      <width>181</width>
      <height>81</height>
     </rect>
@@ -559,6 +559,154 @@
     <string>Exception Catches</string>
    </property>
   </widget>
+  <widget class="QLabel" name="MapProccesedImage">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>170</y>
+     <width>575</width>
+     <height>431</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: &quot;blue&quot;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+  </widget>
+  <widget class="QLabel" name="MapTitle">
+   <property name="geometry">
+    <rect>
+     <x>970</x>
+     <y>140</y>
+     <width>141</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>14</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string>Mapping</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pickX">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>620</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pick X Coordinate</string>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="pickY">
+   <property name="geometry">
+    <rect>
+     <x>1330</x>
+     <y>620</y>
+     <width>171</width>
+     <height>61</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Pick Y Coordinate</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Startcoord_textEdit">
+   <property name="geometry">
+    <rect>
+     <x>1010</x>
+     <y>690</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: lightgreen;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="Endcoord_textEdit">
+   <property name="geometry">
+    <rect>
+     <x>1330</x>
+     <y>690</y>
+     <width>171</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <pointsize>11</pointsize>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: lightgreen;</string>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Plain</enum>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QPushButton" name="sendToMapProcessingButton">
+   <property name="geometry">
+    <rect>
+     <x>1130</x>
+     <y>740</y>
+     <width>241</width>
+     <height>51</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">background-color: pink</string>
+   </property>
+   <property name="text">
+    <string>Send Coordinates to Map Processing!</string>
+   </property>
+  </widget>
   <zorder>scrollArea</zorder>
   <zorder>RunButton</zorder>
   <zorder>StopButton</zorder>
@@ -587,6 +735,13 @@
   <zorder>IPAddressLabel_2</zorder>
   <zorder>exception_line</zorder>
   <zorder>IPAddressLabel_3</zorder>
+  <zorder>MapProccesedImage</zorder>
+  <zorder>MapTitle</zorder>
+  <zorder>pickX</zorder>
+  <zorder>pickY</zorder>
+  <zorder>Startcoord_textEdit</zorder>
+  <zorder>Endcoord_textEdit</zorder>
+  <zorder>sendToMapProcessingButton</zorder>
  </widget>
  <resources/>
  <connections/>
