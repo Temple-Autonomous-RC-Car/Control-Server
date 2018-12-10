@@ -25,7 +25,7 @@ def offsetToSteeringAngle(value):
     Negative means offset to the left.
     Positive means offset to the right.
     """
-    steering = (value / 10) #+ (80 * (1/radius))
+    steering = (value / 14) #+ (80 * (1/radius))
     return steering
 
 
@@ -34,7 +34,7 @@ vidCap = cv2.VideoCapture("http://"+ipAddr)
 vidCap.set(cv2.CAP_PROP_FPS, 30)
 steering = updateSteering(0)
 pid.sample_time = 0.1
-socket_man_test.sendFormattedCommand("3 %.2f drive %.3f " % (time.time(),.3))
+socket_man_test.sendFormattedCommand("3 %.2f drive %.3f " % (time.time(),.25))
 
 while True:
     try:

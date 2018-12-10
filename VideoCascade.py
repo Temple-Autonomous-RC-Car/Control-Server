@@ -14,6 +14,8 @@ directions = []
 scale_factor = 1.3
 min_neighbors = 10
 min_size = (75, 75)
+SLOW_SPEED = .25
+FAST_SPEED = .255
 webcam=True #if working with video file then make it 'False'
 ATSTOP = False
 PROCESSRUNNING=False
@@ -98,14 +100,13 @@ def detect(objects):
             counter = 0
         if len(rects2)>0:
             print("SLOW")
-        
+       	    updateSpeed(SLOW_SPEED) 
         if len(rects3)>0:
-            print("SPEED")
-            #steer(-1)
-            #drive(0.28)
-            #time.sleep(1)
-            #drive(0)
-            # Display the resulting frame
+            print("SPEED UP")
+            updateSpeed(FAST_SPEED)
+       
+                
+	# Display the resulting frame
            # r = 1000.0 / img.shape[1]
            # dim = (1000, int(img.shape[0] * r))
            # resized = cv2.resize(img, dim, interpolation = cv2.INTER_AREA)
@@ -132,10 +133,18 @@ def main():
             
     #cv2.destroyAllWindows()
         cv2.waitKey(1)
+def driveToDestination():
+    #time.sleep(3)
+    print("FHAUSIFHIASHF")
+    socket_man_test.sendFormattedCommand("1 %.2f stop %.3f" % (time.time(),0))
+
+
  
 def turn():
-    
-    direction = directions.pop()
+    if( len(directions) > 0):
+        direction = directions.pop()
+    else:
+        direction = "Z"
     print(direction)
     if "L" in direction:
         #updateSteering(1)
@@ -145,7 +154,8 @@ def turn():
     elif "S" in direction:
         stopCommand("S", 3)
     else:
-        exit()
+        print("STOPPING")
+        driveToDestination()
     """
     updateSpeed(0.26)
     time.sleep(3)
@@ -153,7 +163,9 @@ def turn():
     updateSpeed(0.26)
     time.sleep(1)
     updateSpeed(0)
+
     """
+
 if __name__ == "__main__":
     main()
 

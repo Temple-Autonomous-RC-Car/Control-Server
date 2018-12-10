@@ -19,6 +19,7 @@ startingX, startingY = -1,-1
 endingX, endingY = -1,-1
 PortIP = ip.PORTIP
 
+
 #Car Gui opens when executed
 class loadCarGui(QDialog):
     def __init__(self):
@@ -37,7 +38,7 @@ class loadCarGui(QDialog):
         self.err_verticalScrollBar.setValue(self.err_verticalScrollBar.maximum());
         self.err_scrollArea.setWidget(self.exception_line)
 
-        self.sendCMD.clicked.connect(self.socketTextTest)
+        #self.sendCMD.clicked.connect(self.socketTextTest)
         self.MapUploadButton.clicked.connect(self.mapUpload)
         self.ConnectButton.clicked.connect(self.connectionButtonClicked)
         self.testLogButton.clicked.connect(self.testLogFeed)
@@ -69,17 +70,19 @@ class loadCarGui(QDialog):
     def connectCascadeAndLaneDetect(self):
         #self.p = subprocess.Popen(['python', 'VideoCascade.py'])
         self.p = subprocess.Popen(['python3', 'VideoCascade.py'])
-        #self.p = subprocess.Popen(['py','-3', 'VideoCascade.py'])
+        #self.p = subprocess.Popen(['py','-3.7', 'VideoCascade.py'])
 
         #self.l = subprocess.Popen(['python', 'LaneDetectWrapper.py'])
-        self.p = subprocess.Popen(['python3', 'LaneDetectWrapper.py'])
-        #self.p = subprocess.Popen(['py','-3', 'VideoCascade.py'])
+        self.l = subprocess.Popen(['python3', 'LaneDetectWrapper.py'])
+        #self.l = subprocess.Popen(['py','-3.7', 'LaneDetectWrapper.py'])
 
 
 
     def connectCascadeAndLaneDetectStopped(self):
         self.p.kill()
         self.l.kill()
+        self.p.send_signal(signal.SIGKLL)
+        self.l.send_signal(signal.SIGKLL)
 
 
 #------------------------------------------------------------------------------#
@@ -92,13 +95,14 @@ class loadCarGui(QDialog):
 
 #------------------------------------------------------------------------------#
 #This function will connected to the socket-man.py listener socket
+    """
     def socketTextTest(self):
         try:
             line = self.cmd_line.toPlainText()
             socket_man_test.pullfromCLient(line)
         except:
             self.errorCatch("Error in method socketTextTest")
-
+    """
 
 #------------------------------------------------------------------------------#
 #This function will take map file and send it to processing. Then show processed image
@@ -109,6 +113,7 @@ class loadCarGui(QDialog):
 
             # Create widget
             #label = QLabel(self.MapProccesedImage)
+            self.imageUploadEdit.setText('roomwithoutmarkers.png')
             pixmap = QPixmap('roomwithoutmarkers.png')
             resized_pixmap = pixmap.scaled(574.67, 431)
             self.MapProccesedImage.setPixmap(resized_pixmap)
@@ -171,7 +176,7 @@ class loadCarGui(QDialog):
                         print(endingX,endingY)
                         self.Endcoord_textEdit.setText("X: " + str(endingX) + " Y: " + str(endingY))
                 except:
-                    errorCatch("Error in method mouse_caalback for Y")
+                    errorCatch("Error in method mouse_callback for Y")
             img = cv2.imread("roomwithoutmarkers.png",0)
             height = img.shape[0]
             width = img.shape[1]
@@ -185,6 +190,7 @@ class loadCarGui(QDialog):
 
     def sendToMapProcessingCode(self):
         try:
+            #os.system("python3" + " find_corners.py " + str(startingX) + " " + str(startingY) + " " + str(endingX) + " " + str(endingY))
             os.system("python3" + " find_corners.py " + str(startingX) + " " + str(startingY) + " " + str(endingX) + " " + str(endingY))
 
             #q = queue.Queue()
@@ -202,11 +208,11 @@ class loadCarGui(QDialog):
     def connectionButtonClicked(self):
         try:
             #WILL CONNECT TO SERVER
-            import socket_man_test
-            self.CarIPLabel.setText("10.42.0.230:8081")
-            ipVAl = self.IPlineEdit.text()
-            if ipVAl == "":
-                self.noIPwarning.setText("NO IP:PORT VALUE")
+            #import socket_man_test
+            self.CarIPLabel.setText(str(PortIP))
+            self.IPlineEdit.setText(str(PortIP))
+            #if ipVAl == "":
+            #    self.noIPwarning.setText("NO IP:PORT VALUE")
         except:
             self.errorCatch("Error in method connectionButtonClicked")
 
@@ -220,8 +226,8 @@ class loadCarGui(QDialog):
             self.qTimer.start()
 
             self.i += 1
-            #self.temp += testLog.testPrint() + " " + str(self.i) + "\n"
-            self.temp += sys.stdout
+            self.temp += testLog.testPrint() + " " + str(self.i) + "\n"
+            #self.temp += sys.stdout
             self.CarLogLabel.setText(self.temp)
             self.sensorLog_verticalScrollBar.setValue(self.sensorLog_verticalScrollBar.maximum());
 
@@ -251,10 +257,11 @@ class loadCarGui(QDialog):
             #self.capture=cv2.VideoCapture('http://192.168.137.141:8081/')
 
             #Function will return if IP:Port Value is empty
+            '''
             if self.IPlineEdit.text() == "":
                 self.noIPwarning.setText("NO IP:PORT VALUE")
                 return
-
+            '''
             #IP:Port from input
             #self.capture=cv2.VideoCapture('http://' + self.IPlineEdit.text() + '/')
             self.capture=cv2.VideoCapture('http://' + PortIP + '/')

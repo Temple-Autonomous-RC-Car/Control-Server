@@ -1,4 +1,3 @@
-
 from PIL import Image
 import copy
 import cv2
@@ -6,7 +5,6 @@ import numpy as np
 import array
 import queue
 import sys
-import sys  
 from collections import namedtuple
 from collections import defaultdict
 
@@ -18,11 +16,7 @@ from collections import defaultdict
 Edge = namedtuple('Edge', ['vertex', 'weight'])
 
 
-
 class GraphUndirectedWeighted(object):
-
-class GraphUndirectedWeighted(object):  
-
 	def __init__(self, vertex_count):
 		self.vertex_count = vertex_count
 		self.adjacency_list = [[] for _ in range(vertex_count)]
@@ -44,11 +38,7 @@ class GraphUndirectedWeighted(object):
 			yield v
 
 
-
-#def dijkstra(graph, source, dest):
-
-def dijkstra(graph, source, dest):  
-
+def dijkstra(graph, source, dest):
 	q = queue.PriorityQueue()
 	parents = []
 	distances = []
@@ -130,7 +120,7 @@ centers.append(endingPixel)
 rgb_im = im.convert("RGB")
 distanceX = 0
 distanceY = 0
-
+"""
 if circles is not None:
 	circles = np.uint16(np.around(circles))
 	for i in circles[0, :]:
@@ -152,11 +142,7 @@ for i in range(0, len(centers)):
 	if r < 100 and g >150 and b <100 :
 		centers2.append(centers[i])
 	elif r <100 and g > 255 and b < 100:
-
 		centers2.append(centers[i])
-
-		centers2.append(centers[i])	
-
 """
 #for i in range(0, len(centers)):
 #	print("centers")
@@ -261,24 +247,12 @@ for i in range(0, len(finalNodes)):
 print("Top Left Nodes")
 for i in range(0, len(topLeftNodes)):
 	print(topLeftNodes[i])
-
 print("Top Right Nodes")
 for i in range(0, len(topRightNodes)):
 	print(topRightNodes[i])
 print("Bottom Left Nodes")
 for i in range(0, len(bottomLeftNodes)):
 	print(bottomLeftNodes[i])
-
-
-print("Top Right Nodes")
-for i in range(0, len(topRightNodes)):
-	print(topRightNodes[i])
-
-print("Bottom Left Nodes")
-for i in range(0, len(bottomLeftNodes)):
-	print(bottomLeftNodes[i])
-
-
 print("Bottom Right Nodes")
 for i in range(0, len(bottomRightNodes)):
 	print(bottomRightNodes[i])
@@ -311,16 +285,9 @@ for i in range(1, len(finalNodes)):
 		p = h
 		i = len(finalNodes)+1
 
-
 """
 distanceX = abs(int(l)-int(x))
 distanceY = abs(int(p)-int(y))
-=======
-"""		
-distanceX = abs(int(l)-int(x))
-distanceY = abs(int(p)-int(y))
-
-
 if distanceY<20:
 	distanceX = int(distanceX/2)
 	distanceY = distanceX
@@ -358,11 +325,7 @@ for i in range(0, len(actualNodes)):
 	else:
 		realFinal.append(actualNodes[i])
 
-
 #print("real final")
-
-#print("real final")	
-
 #print(len(realFinal))
 
 actualNodes = realFinal
@@ -380,7 +343,7 @@ for i in range(0, len(actualNodes)):
 		if abs(x-l)<20 and abs(y-p)<20:
 			actualNodes[m] = actualNodes[i]
 
-			
+
 actualNodes = list(set(actualNodes))
 #print(len(actualNodes))
 """
@@ -400,11 +363,7 @@ for i in range(0, len(actualNodes)):
 			otherTry.append(actualNodes[i])
 			f+=1
 	else:
-
 		otherTry.append(actualNodes[i])
-
-		otherTry.append(actualNodes[i])	
-
 """
 #print(len(otherTry))
 #for i in range(0, len(otherTry)):
@@ -469,7 +428,7 @@ finalEdges = []
 for i in range(0, len(final)):
 	x,y = final[i]
 	pts, letterA = finalWithLetters[i]
-	for m in range(i, len(final)):
+	for m in range(0, len(final)):
 		l,p = final[m]
 		pts, letterB = finalWithLetters[m]
 		edges.append(((x,y),(l,p)))
@@ -517,15 +476,9 @@ for i in range(0, len(finalEdges)):
 		pt3, pt4 = pts
 		if pt2==pt4 and direc==direc2:
 
-
 			tryThisEdges.append(finalEdges[m])
 			notTheseEdges.append(finalEdges[i])
 
-
-			
-			tryThisEdges.append(finalEdges[m])
-			notTheseEdges.append(finalEdges[i])
-			 	
 
 for i in range(0,len(finalEdges)):
 	if finalEdges[i] in notTheseEdges:
@@ -537,6 +490,9 @@ for i in range(0,len(finalEdges)):
 
 
 actualEdges = []
+
+'''for i in range(0, len(finalEdges)):
+	print ("finalEdges: ",finalEdges[i])'''
 
 for i in range(0, len(finalEdges)):
 	pts, direc = finalEdges[i]
@@ -561,15 +517,9 @@ for i in range(0, len(finalEdges)):
 		p2r, p2g, p2b = rgb_im.getpixel((int(x), int(p2)))
 		p3r, p3g, p3b = rgb_im.getpixel((int(x), int(p3)))
 		p4r, p4g, p4b = rgb_im.getpixel((int(x), int(p4)))
-
 		p5r, p5g, p5b = rgb_im.getpixel((int(x), int(p5)))
 		if p2r==p3r==p4r==0 and p2g==p3g==p4g==0 and p2b==p3b==p4b==255:
 			actualEdges.append(finalEdges[i])
-
-		p5r, p5g, p5b = rgb_im.getpixel((int(x), int(p5))) 
-		if p2r==p3r==p4r==0 or p2g==p3g==p4g==0 or p2b==p3b==p4b==255:
-			actualEdges.append(finalEdges[i]) 
-
 	elif y>p and run<40:
 		points = int(rise/5)
 		p1 = y-points
@@ -582,11 +532,7 @@ for i in range(0, len(finalEdges)):
 		p3r, p3g, p3b = rgb_im.getpixel((int(x), int(p3)))
 		p4r, p4g, p4b = rgb_im.getpixel((int(x), int(p4)))
 		p5r, p5g, p5b = rgb_im.getpixel((int(x), int(p5)))
-
 		if p2r==p3r==p4r==0 and p2g==p3g==p4g==0 and p2b==p3b==p4b==255:
-
-		if p2r==p3r==p4r==0 or p2g==p3g==p4g==0 or p2b==p3b==p4b==255:
-
 			actualEdges.append(finalEdges[i])
 	elif x<l and rise<40:
 		points = int(run/5)
@@ -600,11 +546,7 @@ for i in range(0, len(finalEdges)):
 		p3r, p3g, p3b = rgb_im.getpixel((int(p3),int(y)))
 		p4r, p4g, p4b = rgb_im.getpixel((int(p4),int(y)))
 		p5r, p5g, p5b = rgb_im.getpixel((int(p5),int(y)))
-
 		if p2r==p3r==p4r==0 and p2g==p3g==p4g==0 and p2b==p3b==p4b==255:
-
-		if p2r==p3r==p4r==0 or p2g==p3g==p4g==0 or p2b==p3b==p4b==255:
-
 			actualEdges.append(finalEdges[i])
 	elif x>l and rise<40:
 		points = int(run/5)
@@ -618,11 +560,7 @@ for i in range(0, len(finalEdges)):
 		p3r, p3g, p3b = rgb_im.getpixel((int(p3), int(y)))
 		p4r, p4g, p4b = rgb_im.getpixel((int(p4), int(y)))
 		p5r, p5g, p5b = rgb_im.getpixel((int(p5), int(y)))
-
 		if p2r==p3r==p4r==0 and p2g==p3g==p4g==0 and p2b==p3b==p4b==255:
-
-		if p2r==p3r==p4r==0 or p2g==p3g==p4g==0 or p2b==p3b==p4b==255:
-
 			actualEdges.append(finalEdges[i])
 
 
@@ -638,11 +576,7 @@ for i in range(0, len(actualEdges)):
 		l1,p1 = pts1b
 		l2,p2 = pts2b
 		if pt2 == pts2b and direc==direcb:
-
 			length1X= abs(int(x1)-int(x2))
-
-			length1X= abs(int(x1)-int(x2)) 
-
 			length2X= abs(int(l1)-int(l2))
 			length1Y= abs(int(y1)-int(y2))
 			length2Y = abs(int(p1)-int(p2))
@@ -662,6 +596,11 @@ r = 255
 g = 0
 b = 255
 list(set(actualEdges))
+
+
+
+'''for i in range(0, len(actualEdges)):
+	print ("actualEdges: ",actualEdges[i])'''
 
 newList=[]
 for i in actualEdges:
@@ -688,14 +627,18 @@ for i in range(0, len(newList)):
 	b = int(b)
 	#cv2.line(image, (x,y), (l,p), (r,g,b), 4, 8, 0)
 
+if ((startingPixel,endingPixel)) in actualActual:
+	actualActual.remove((startingPixel,endingPixel))
+	#print("\n\nSTART AND END PIXEL EDGE FOUND\n\n")
+if ((endingPixel,startingPixel)) in actualActual:
+	actualActual.remove((endingPixel,startingPixel))
+	#print("\n\nSTART AND END PIXEL EDGE FOUND\n\n")
 
+'''for i in range(0, len(newList)):
+	print ("newList: ",newList[i])'''
 path = []
 startingPoint = centers[0]
-
 endingPoint = centers[0]
-
-endingPoint = centers[0] 
-
 
 #time to put the nodes from the image into a graph
 
@@ -705,7 +648,7 @@ for i in range(0,len(final)):
 	pt = final[i]
 	for m in range(i, len(final)):
 		pt2 = final[m]
-		
+
 		if (pt, pt2) in actualActual or (pt2, pt) in actualActual:
 			x,y = pt
 			l,p = pt2
@@ -715,6 +658,14 @@ for i in range(0,len(final)):
 				weight = abs(x-l)
 			edgesWithStartAndEnd.append((pt, pt2, i, m))
 			g.add_edge(i,m,(x,y),(l,p),weight)
+
+'''for i in range(0, len(final)):
+	print ("Nodes: ",final[i])
+for i in range(0, len(actualActual)):
+	print ("Edges: ",actualActual[i])
+print("\n\n\n")'''
+
+
 """
 #Validate input is good--------------------------------------
 validIn=0;
@@ -725,11 +676,7 @@ while validIn!=1:
 		print("\033[H\033[J")
 		print("Start and finish cannot be the same")
 	elif start not in range(0,(len(final))) or end not in range(0,(len(final))):
-<<<<<<< HEAD
 		print("\033[H\033[J")
-=======
-		print("\033[H\033[J")		
->>>>>>> cda9fabbe7738394cffe964194d18736a93e613a
 		print("Input(s) are not in range")
 	else:
 		print("\033[H\033[J")
@@ -737,12 +684,9 @@ while validIn!=1:
 """
 
 
-
 #Shortest path and non-clever directions
-
-#Shortest path and non-clever directions	
-
-shortest_path, distance = dijkstra(g, len(final)-1, 0)
+#shortest_path, distance = dijkstra(g, 0, len(final)-1)
+shortest_path, distance = dijkstra(g, len(final)-1,0)
 
 edgeDirFinal=[]
 for i in range(0, len(shortest_path)-1):
@@ -797,5 +741,4 @@ image[dst>0.1*dst.max()] = [255,255,0]
 #cv2.imshow("gray", gray)
 cv2.imwrite('finalWithNodes.png',image)
 #cv2.waitKey(15500)
-cv2.destroyAllWindows	
-
+cv2.destroyAllWindows

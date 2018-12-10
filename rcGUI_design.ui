@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1580</width>
-    <height>930</height>
+    <height>845</height>
    </rect>
   </property>
   <property name="contextMenuPolicy">
@@ -58,7 +58,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>IPADDR</string>
+    <string/>
    </property>
   </widget>
   <widget class="QLabel" name="IPAddressLabel">
@@ -442,55 +442,11 @@
     <string/>
    </property>
   </widget>
-  <widget class="QTextEdit" name="cmd_line">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>700</y>
-     <width>671</width>
-     <height>101</height>
-    </rect>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: orange;</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="sendCMD">
-   <property name="geometry">
-    <rect>
-     <x>730</x>
-     <y>710</y>
-     <width>181</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Send</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="IPAddressLabel_2">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>670</y>
-     <width>151</width>
-     <height>31</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>14</pointsize>
-    </font>
-   </property>
-   <property name="text">
-    <string>Command Line</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="IPAddressLabel_3">
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>800</y>
+     <y>670</y>
      <width>151</width>
      <height>31</height>
     </rect>
@@ -656,7 +612,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>830</y>
+     <y>700</y>
      <width>811</width>
      <height>61</height>
     </rect>
@@ -692,7 +648,7 @@
    <property name="geometry">
     <rect>
      <x>50</x>
-     <y>830</y>
+     <y>700</y>
      <width>811</width>
      <height>61</height>
     </rect>
@@ -733,7 +689,7 @@
    <property name="geometry">
     <rect>
      <x>860</x>
-     <y>830</y>
+     <y>700</y>
      <width>20</width>
      <height>61</height>
     </rect>
@@ -794,9 +750,6 @@
   <zorder>testLogButton</zorder>
   <zorder>sensorLog_verticalScrollBar</zorder>
   <zorder>noIPwarning</zorder>
-  <zorder>cmd_line</zorder>
-  <zorder>sendCMD</zorder>
-  <zorder>IPAddressLabel_2</zorder>
   <zorder>IPAddressLabel_3</zorder>
   <zorder>MapProccesedImage</zorder>
   <zorder>MapTitle</zorder>
