@@ -83,14 +83,7 @@ def detect(objects):
         rects3 = cascade3.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
                                          minSize=min_size)
         # if at least 1 face detected
-        if len(rects1) > 0:
-            if(ATSTOP == False):
-                print("Object Detecting")
-                turn()
-                ATSTOP = True
-            #stopCommand(3)    
-            #break
-            continue
+
         
         if(ATSTOP):
             counter+=1
