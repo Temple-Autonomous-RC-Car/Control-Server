@@ -16,6 +16,7 @@ min_neighbors = 10
 min_size = (75, 75)
 webcam=True #if working with video file then make it 'False'
 ATSTOP = False
+PROCESSRUNNING=False
 
 def updateDirectionsList():
     f = open("directions.txt", "r")
@@ -42,7 +43,8 @@ def stopCommand(dir,ts):
     else:
         socket_man_test.sendFormattedCommand("1 %.2f stopcenter %.3f" % (time.time(),ts))
 
- 
+def killprocess():
+    PROCESSRUNNING=False
 
 def detect(objects):
     ipAddr = ip.PORTIP
@@ -62,7 +64,7 @@ def detect(objects):
     #updateSpeed(0.26)
     global ATSTOP
     counter = 0
-    while True:
+    while PROCESSRUNNING:
         # Capture frame-by-frame
         ret, img = video_cap.read()
         
@@ -87,7 +89,9 @@ def detect(objects):
             #stopCommand(3)    
             #break
             continue
-        counter+=1
+        
+        if(ATSTOP):
+            counter+=1
         print("Counter is %d" % counter)
         if(counter> 30):
             ATSTOP = False
@@ -114,11 +118,12 @@ def detect(objects):
     video_cap.release()
     
 def main():
+    PROCESSRUNNING=True
     updateDirectionsList()
     cascadeFilePath=["stop.xml","slowNewSign.xml","speedNewSign.xml"]
     try:
-        updateSpeed(.26)
-        updateSteering(0)
+       # updateSpeed(.26)
+       # updateSteering(0)
         detect(cascadeFilePath)
     except KeyboardInterrupt: 
         updateSpeed(0)
