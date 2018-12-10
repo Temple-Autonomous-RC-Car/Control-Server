@@ -16,6 +16,7 @@ min_neighbors = 10
 min_size = (75, 75)
 webcam=True #if working with video file then make it 'False'
 ATSTOP = False
+PROCESSRUNNING=False
 
 def updateDirectionsList():
     f = open("directions.txt", "r")
@@ -42,7 +43,9 @@ def stopCommand(dir,ts):
     else:
         socket_man_test.sendFormattedCommand("1 %.2f stopcenter %.3f" % (time.time(),ts))
 
- 
+def killprocess():
+    global PROCESSRUNNING
+    PROCESSRUNNING=False
 
 def detect(objects):
     ipAddr = ip.PORTIP
@@ -60,9 +63,10 @@ def detect(objects):
    # cv2.namedWindow(WINDOW_NAME, cv2.WINDOW_AUTOSIZE)
    # cv2.startWindowThread()
     #updateSpeed(0.26)
-    global ASTOP
-    counter=0
-    while True:
+    global ATSTOP
+    counter = 0
+    global PROCESSRUNNING
+    while PROCESSRUNNING:
         # Capture frame-by-frame
         ret, img = video_cap.read()
         
@@ -79,20 +83,14 @@ def detect(objects):
         rects3 = cascade3.detectMultiScale(gray, scaleFactor=scale_factor, minNeighbors=min_neighbors,
                                          minSize=min_size)
         # if at least 1 face detected
-      
-        if len(rects1) > 0:
-            if(ATSTOP == False):
-                print("Object Detecting")
-                turn()
-                ATSTOP = True
-            #stopCommand(3)    
-            #break
-            continue
-	counter += 1
-	print (counter)
-	if(counter>30):
-	    ATSTOP = False
-	    counter = 0
+
+        
+        if(ATSTOP):
+            counter+=1
+        print("Counter is %d" % counter)
+        if(counter> 30):
+            ATSTOP = False
+            counter = 0
         if len(rects2)>0:
             print("SLOW")
         
@@ -115,11 +113,13 @@ def detect(objects):
     video_cap.release()
     
 def main():
+    global PROCESSRUNNING
+    PROCESSRUNNING=True
     updateDirectionsList()
     cascadeFilePath=["stop.xml","slowNewSign.xml","speedNewSign.xml"]
     try:
-        updateSpeed(.26)
-        updateSteering(0)
+       # updateSpeed(.26)
+       # updateSteering(0)
         detect(cascadeFilePath)
     except KeyboardInterrupt: 
         updateSpeed(0)
@@ -129,6 +129,7 @@ def main():
         cv2.waitKey(1)
  
 def turn():
+    
     direction = directions.pop()
     print(direction)
     if "L" in direction:
@@ -138,6 +139,8 @@ def turn():
         stopCommand("R", 3)
     elif "S" in direction:
         stopCommand("S", 3)
+    else:
+        exit()
     """
     updateSpeed(0.26)
     time.sleep(3)
