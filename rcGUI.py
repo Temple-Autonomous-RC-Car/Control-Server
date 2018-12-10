@@ -9,6 +9,7 @@ from PyQt5.QtGui import QIcon, QPixmap
 import os
 import queue
 import subprocess
+import ip
 
 import testLog
 
@@ -16,7 +17,7 @@ import testLog
 #right_clicks = list()
 startingX, startingY = -1,-1
 endingX, endingY = -1,-1
-
+PortIP = ip.PORTIP
 
 #Car Gui opens when executed
 class loadCarGui(QDialog):
@@ -202,7 +203,7 @@ class loadCarGui(QDialog):
         try:
             #WILL CONNECT TO SERVER
             import socket_man_test
-            self.CarIPLabel.setText(self.IPlineEdit.text())
+            self.CarIPLabel.setText("10.42.0.230:8081")
             ipVAl = self.IPlineEdit.text()
             if ipVAl == "":
                 self.noIPwarning.setText("NO IP:PORT VALUE")
@@ -219,7 +220,8 @@ class loadCarGui(QDialog):
             self.qTimer.start()
 
             self.i += 1
-            self.temp += testLog.testPrint() + " " + str(self.i) + "\n"
+            #self.temp += testLog.testPrint() + " " + str(self.i) + "\n"
+            self.temp += sys.stdout
             self.CarLogLabel.setText(self.temp)
             self.sensorLog_verticalScrollBar.setValue(self.sensorLog_verticalScrollBar.maximum());
 
@@ -254,7 +256,8 @@ class loadCarGui(QDialog):
                 return
 
             #IP:Port from input
-            self.capture=cv2.VideoCapture('http://' + self.IPlineEdit.text() + '/')
+            #self.capture=cv2.VideoCapture('http://' + self.IPlineEdit.text() + '/')
+            self.capture=cv2.VideoCapture('http://' + PortIP + '/')
 
             self.capture.set(cv2.CAP_PROP_FRAME_HEIGHT, 480)
             self.capture.set(cv2.CAP_PROP_FRAME_WIDTH, 640)

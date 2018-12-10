@@ -58,7 +58,7 @@
     </rect>
    </property>
    <property name="text">
-    <string/>
+    <string>IPADDR</string>
    </property>
   </widget>
   <widget class="QLabel" name="IPAddressLabel">
@@ -82,22 +82,22 @@
   <widget class="QLabel" name="CarLogTitle">
    <property name="geometry">
     <rect>
-     <x>30</x>
-     <y>260</y>
+     <x>50</x>
+     <y>270</y>
      <width>131</width>
      <height>41</height>
     </rect>
    </property>
    <property name="font">
     <font>
-     <pointsize>11</pointsize>
+     <pointsize>14</pointsize>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: red;</string>
+    <string notr="true"/>
    </property>
    <property name="text">
-    <string>Car Log: (N/A yet)</string>
+    <string>Car Log</string>
    </property>
   </widget>
   <widget class="QLabel" name="CarLogLabel">
@@ -171,7 +171,7 @@
   <widget class="QLabel" name="IPAddressLabel_5">
    <property name="geometry">
     <rect>
-     <x>20</x>
+     <x>80</x>
      <y>90</y>
      <width>161</width>
      <height>31</height>
@@ -179,16 +179,16 @@
    </property>
    <property name="font">
     <font>
-     <pointsize>12</pointsize>
+     <pointsize>14</pointsize>
      <weight>50</weight>
      <bold>false</bold>
     </font>
    </property>
    <property name="styleSheet">
-    <string notr="true">color: red;</string>
+    <string notr="true"/>
    </property>
    <property name="text">
-    <string>Map Upload: (N/A yet)</string>
+    <string>Map Upload </string>
    </property>
   </widget>
   <widget class="QLineEdit" name="imageUploadEdit">
@@ -440,27 +440,6 @@
    </property>
    <property name="text">
     <string/>
-   </property>
-  </widget>
-  <widget class="QLabel" name="CarLogTitle_4">
-   <property name="geometry">
-    <rect>
-     <x>850</x>
-     <y>80</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: red;</string>
-   </property>
-   <property name="text">
-    <string>(N/A yet)</string>
    </property>
   </widget>
   <widget class="QTextEdit" name="cmd_line">
@@ -815,7 +794,6 @@
   <zorder>testLogButton</zorder>
   <zorder>sensorLog_verticalScrollBar</zorder>
   <zorder>noIPwarning</zorder>
-  <zorder>CarLogTitle_4</zorder>
   <zorder>cmd_line</zorder>
   <zorder>sendCMD</zorder>
   <zorder>IPAddressLabel_2</zorder>
