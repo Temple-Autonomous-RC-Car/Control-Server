@@ -67,12 +67,12 @@ class loadCarGui(QDialog):
 #------------------------------------------------------------------------------#
 
     def connectCascadeAndLaneDetect(self):
-        self.p = subprocess.Popen(['python', 'VideoCascade.py'])
-        #self.p = subprocess.Popen(['python3', 'VideoCascade.py'])
+        #self.p = subprocess.Popen(['python', 'VideoCascade.py'])
+        self.p = subprocess.Popen(['python3', 'VideoCascade.py'])
         #self.p = subprocess.Popen(['py','-3', 'VideoCascade.py'])
 
-        self.l = subprocess.Popen(['python', 'LaneDetectWrapper.py'])
-        #self.p = subprocess.Popen(['python3', 'VideoCascade.py'])
+        #self.l = subprocess.Popen(['python', 'LaneDetectWrapper.py'])
+        self.p = subprocess.Popen(['python3', 'LaneDetectWrapper.py'])
         #self.p = subprocess.Popen(['py','-3', 'VideoCascade.py'])
 
 
@@ -185,7 +185,7 @@ class loadCarGui(QDialog):
 
     def sendToMapProcessingCode(self):
         try:
-            os.system("find_corners.py " + str(startingX) + " " + str(startingY) + " " + str(endingX) + " " + str(endingY))
+            os.system("python3" + " find_corners.py " + str(startingX) + " " + str(startingY) + " " + str(endingX) + " " + str(endingY))
 
             #q = queue.Queue()
             pixmap = QPixmap('finalWithNodes.png')

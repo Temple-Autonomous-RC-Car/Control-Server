@@ -84,7 +84,12 @@ def detect(objects):
                                          minSize=min_size)
         # if at least 1 face detected
 
-        
+        if len(rects1)>0:
+            if(ATSTOP==False):
+                print("Stop sign")
+                ATSTOP=True
+                turn()
+            continue
         if(ATSTOP):
             counter+=1
         print("Counter is %d" % counter)

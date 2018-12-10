@@ -34,7 +34,7 @@ vidCap = cv2.VideoCapture("http://"+ipAddr)
 vidCap.set(cv2.CAP_PROP_FPS, 30)
 steering = updateSteering(0)
 pid.sample_time = 0.1
-socket_man_test.sendFormattedCommand("3 %.2f drive %.3f " % (time.time(),.27))
+socket_man_test.sendFormattedCommand("3 %.2f drive %.3f " % (time.time(),.3))
 
 while True:
     try:
