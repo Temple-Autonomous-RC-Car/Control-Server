@@ -428,7 +428,7 @@ finalEdges = []
 for i in range(0, len(final)):
 	x,y = final[i]
 	pts, letterA = finalWithLetters[i]
-	for m in range(i, len(final)):
+	for m in range(0, len(final)):
 		l,p = final[m]
 		pts, letterB = finalWithLetters[m]
 		edges.append(((x,y),(l,p)))
@@ -490,6 +490,9 @@ for i in range(0,len(finalEdges)):
 
 
 actualEdges = []
+
+'''for i in range(0, len(finalEdges)):
+	print ("finalEdges: ",finalEdges[i])'''
 
 for i in range(0, len(finalEdges)):
 	pts, direc = finalEdges[i]
@@ -594,6 +597,11 @@ g = 0
 b = 255
 list(set(actualEdges))
 
+
+
+'''for i in range(0, len(actualEdges)):
+	print ("actualEdges: ",actualEdges[i])'''
+
 newList=[]
 for i in actualEdges:
 	if i not in newList:
@@ -619,7 +627,15 @@ for i in range(0, len(newList)):
 	b = int(b)
 	#cv2.line(image, (x,y), (l,p), (r,g,b), 4, 8, 0)
 
+if ((startingPixel,endingPixel)) in actualActual:
+	actualActual.remove((startingPixel,endingPixel))
+	#print("\n\nSTART AND END PIXEL EDGE FOUND\n\n")
+if ((endingPixel,startingPixel)) in actualActual:
+	actualActual.remove((endingPixel,startingPixel))
+	#print("\n\nSTART AND END PIXEL EDGE FOUND\n\n")
 
+'''for i in range(0, len(newList)):
+	print ("newList: ",newList[i])'''
 path = []
 startingPoint = centers[0]
 endingPoint = centers[0]
@@ -642,6 +658,14 @@ for i in range(0,len(final)):
 				weight = abs(x-l)
 			edgesWithStartAndEnd.append((pt, pt2, i, m))
 			g.add_edge(i,m,(x,y),(l,p),weight)
+
+'''for i in range(0, len(final)):
+	print ("Nodes: ",final[i])
+for i in range(0, len(actualActual)):
+	print ("Edges: ",actualActual[i])
+print("\n\n\n")'''
+
+
 """
 #Validate input is good--------------------------------------
 validIn=0;
@@ -661,7 +685,8 @@ while validIn!=1:
 
 
 #Shortest path and non-clever directions
-shortest_path, distance = dijkstra(g, len(final)-1, 0)
+#shortest_path, distance = dijkstra(g, 0, len(final)-1)
+shortest_path, distance = dijkstra(g, len(final)-1,0)
 
 edgeDirFinal=[]
 for i in range(0, len(shortest_path)-1):

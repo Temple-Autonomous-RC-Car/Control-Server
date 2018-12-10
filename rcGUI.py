@@ -8,6 +8,7 @@ from PyQt5.QtGui import QIcon, QPixmap
 #from win32api import GetSystemMetrics
 import os
 import queue
+import subprocess
 
 import testLog
 
@@ -15,6 +16,7 @@ import testLog
 #right_clicks = list()
 startingX, startingY = -1,-1
 endingX, endingY = -1,-1
+
 
 #Car Gui opens when executed
 class loadCarGui(QDialog):
@@ -42,6 +44,10 @@ class loadCarGui(QDialog):
         self.TestCamButton.clicked.connect(self.Start_WebCam)
         self.TurnOffCamButton.clicked.connect(self.Stop_WebCam)
 
+        #start button: VideoCascade and LaneDetectWrapper
+            #videocascade -> LaneDetectWrapper
+        self.RunButton.clicked.connect(self.connectCascadeAndLaneDetect)
+        self.StopButton.clicked.connect(self.connectCascadeAndLaneDetectStopped)
 
         self.pickX.clicked.connect(self.pickXcoordinate)
         self.pickY.clicked.connect(self.pickYcoordinate)
@@ -57,7 +63,22 @@ class loadCarGui(QDialog):
 
         #self.qTimer.start()
     @pyqtSlot()
+#------------------------------------------------------------------------------#
 
+    def connectCascadeAndLaneDetect(self):
+        self.p = subprocess.Popen(['python', 'VideoCascade.py'])
+        #self.p = subprocess.Popen(['python3', 'VideoCascade.py'])
+        #self.p = subprocess.Popen(['py','-3', 'VideoCascade.py'])
+
+        self.l = subprocess.Popen(['python', 'LaneDetectWrapper.py'])
+        #self.p = subprocess.Popen(['python3', 'VideoCascade.py'])
+        #self.p = subprocess.Popen(['py','-3', 'VideoCascade.py'])
+
+
+
+    def connectCascadeAndLaneDetectStopped(self):
+        self.p.kill()
+        self.l.kill()
 
 
 #------------------------------------------------------------------------------#

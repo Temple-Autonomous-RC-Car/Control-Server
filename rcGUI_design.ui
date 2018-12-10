@@ -442,27 +442,6 @@
     <string/>
    </property>
   </widget>
-  <widget class="QLabel" name="CarLogTitle_3">
-   <property name="geometry">
-    <rect>
-     <x>850</x>
-     <y>40</y>
-     <width>131</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="font">
-    <font>
-     <pointsize>11</pointsize>
-    </font>
-   </property>
-   <property name="styleSheet">
-    <string notr="true">color: red;</string>
-   </property>
-   <property name="text">
-    <string>(N/A yet)</string>
-   </property>
-  </widget>
   <widget class="QLabel" name="CarLogTitle_4">
    <property name="geometry">
     <rect>
@@ -712,8 +691,7 @@
     <bool>false</bool>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(255, 255, 127);
-</string>
+    <string notr="true">background-color: purple; color: white;</string>
    </property>
    <property name="frameShape">
     <enum>QFrame::Panel</enum>
@@ -837,7 +815,6 @@
   <zorder>testLogButton</zorder>
   <zorder>sensorLog_verticalScrollBar</zorder>
   <zorder>noIPwarning</zorder>
-  <zorder>CarLogTitle_3</zorder>
   <zorder>CarLogTitle_4</zorder>
   <zorder>cmd_line</zorder>
   <zorder>sendCMD</zorder>
